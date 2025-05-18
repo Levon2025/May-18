@@ -1,0 +1,165 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node{
+ int val;
+ struct Node*next;
+ }Node;
+Node*  createNode(int value){
+ Node* newNode = (Node*)malloc(sizeof(Node));
+  if(newNode == NULL){
+ return NULL;
+}
+ newNode -> val = value;
+ newNode -> next = NULL;
+
+ return newNode;
+}
+void insertatend(Node**head,int value){
+ if(head ==NULL){
+ return NULL;
+}
+ Node* newnode = creatNode(value);
+ if(newNode == NULL){
+ return NULL;
+}
+ if(*head == NULL){
+ *head = newNode;
+ return ;
+}
+ Node* currect = *head;
+   while(currect -> next != NULL){ 
+     currect = currect -> next;
+}
+  currect -> next = newNode;
+}
+void insertatfront(Node **head,int val){
+ Node* newNode =(Node*)malloc(sizeof(Node));
+ newNode -> val = value;
+ newNode -> next = *head;
+ *head = newNode;
+}
+void  insertAt(Node**head,int index,int value){
+    if(index < 0){
+ printf("Invalid index,%d\n",index);
+ return ;
+}
+ if(index == 0){
+ insertAt(head,value);
+ return ;
+}
+ Node*currect = *head;
+ int i = 0;
+ while(currect != NULL && i < index - 1){
+ currect = currect ->next;
+ i++;
+}
+ if(currect ==NULL){
+ printf("Index out of bounds %d\n",index);
+  return ;
+}
+ Node* newNode =(Node*)malloc(sizeof(Node));
+ newNode->val = value;
+ newNode -> next = currect-next;
+ currect ->next = newNode;
+ }
+ 
+void deleteNode(Node **head,int value){
+ if(*head == NULL){
+ return;
+}
+ Node* currect = *head;
+ Node* prev = NULL;
+ if(currect -> data == value){
+ *head = currenct ->next;
+ free(currect);
+ return ;
+}
+
+void removefront(Node**head){
+	if(head == NULL || *head ==NULL){
+	return ;
+}
+	Node *temp = *head;
+	*head = (*head)-> next;
+	free(temp);
+}
+void removeback(Node**head){
+	if(head == NULL || *head ==NULL){
+	return;
+}
+	if((*head) ->next == NULL){
+	free(*head);
+	*head = NULL;
+}
+	Node *current = *head;
+	while(current -> next ->next != NULL){
+	current = current -> next;
+	}
+	free(current ->next);
+	current -> next = NULL;
+}
+void removeat(Node**head ,int index){
+	if(head == NULL || *head ==NULL || index < 0){
+	return ;
+}
+	if(index == 0){
+	Node *temp = *head;
+	*head = (*head)->next;
+	free(temp);
+	return ;
+}
+	Node *current = *head;
+	for(int i = 0; i < index -1;i++){
+	if(current -> next ==NULL){
+	return ;
+}
+	current = current -> next;
+	}
+	if(current -> next == NULL){
+	return ;
+}
+	Node *temp = current -> next;
+	current -> next = temp -> next;
+	free(temp);
+}
+	
+Node *srech(Node *head,int val){
+	if(head ==NULL){
+	printf("Empty");
+	return NULL;
+}
+	Node *current = head;
+	while(current != NULL){
+	if(current ->data == val){
+	return current;
+}
+	current = current-> next;
+}
+ 	return NULL;
+}
+void printlist(Node *head){
+	if(head == NULL){
+	printf("Empty");
+	return ;
+}
+	Node *current = head;
+	while(current !=NULL){
+	printf("%d",current -> val);
+	if(current -> next != NULL){
+	printf("->");
+}
+	current = current-> next;
+}
+void freelist(Node **head){
+	if(head == NULL || *head == NULL){
+	return ;
+}
+	Node *current = *head;
+	Node *nextNode;
+ 	while(current !=NULL){
+	nextNode = current->next;
+	free(current);
+	current = nextNode;
+}
+	*head = NULL;
+}
